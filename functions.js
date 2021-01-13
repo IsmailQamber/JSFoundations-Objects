@@ -38,12 +38,12 @@ function numberOfVideos(channel) {
  * BONUS: use iteration method `.some()`
  ****************************************************************/
 function channelHasVideo(videoTitle, channel) {
-  let Title = videoTitle;
-  if(channel.videos.title.some(Title)){
-    return true;
-  } else return false;
+
+       return channel.videos.some((video) =>
+        video.title.toLowerCase() === videoTitle.toLowerCase()
+      ); 
 }
-// console.log(channelHasVideo("The Universal S", channels[0]));
+//  console.log(channelHasVideo("The Universal S", channels[0]));
 // console.log(channelHasVideo("The Universal S", channels[1]));
 
 /**************************************************************
@@ -55,8 +55,17 @@ function channelHasVideo(videoTitle, channel) {
  * BONUS: use iteration method `.find()`
  ****************************************************************/
 function getChannelByName(channelName, channels) {
-  let Name = channelName;
-  return channel.name.find(name);
+  let Name;
+  channels.forEach((channel)=>{
+    if(channel.name === channelName){
+      Name = channel;
+    }
+  });
+    return Name;
+
+  // return channels.find(function(channel){
+  //   channel.name === channelName
+  // });
 }
 // console.log(getChannelByName("PowerfulJRE", channels))
 
@@ -70,7 +79,24 @@ function getChannelByName(channelName, channels) {
  ****************************************************************/
 function getChannelByVideoTitle(videoTitle, channels) {
   // Your code here
+  let Found;
+  channels.forEach((channel) => {
+    channel.videos.forEach((video) => {
+     if(video.title === videoTitle){
+      Found = channel;
+     } 
+    });
+  });
+  return Found;
 }
+  
+
+//   channels.forEach(function(channel){
+//      channel.videos.forEach(function(video){
+//       video.title.tolowerCase() === videoTitle.tolowerCase()
+//      }); 
+//   });
+
 // console.log(channelHasVideo("The Universal S", channels));
 
 /**************************************************************
@@ -83,6 +109,9 @@ function getChannelByVideoTitle(videoTitle, channels) {
  ****************************************************************/
 function searchChannels(query, channels) {
   // Your code here
+ return channels.filter((channel)=> 
+     channel.name.includes(query) || channel.description.includes(query)
+  );
 }
 // console.log(searchChannels("the", channels))
 
